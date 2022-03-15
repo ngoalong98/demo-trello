@@ -1,0 +1,22 @@
+@import '/src/setting';
+
+.board-content {
+    display     : flex;
+    overflow-x  : auto;
+    padding-left: $gap;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar:horizontal {
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $common-element-bg;
+      border-radius   : 8px;
+    }
+
+    
+  }
