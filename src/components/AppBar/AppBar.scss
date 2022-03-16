@@ -2,10 +2,8 @@
 
 $app-bar-color    : #006793;
 
-
-
-
 .navbar-app {
+    height: $navbar-app-height;
     padding-left    : $gap;
     display         : flex;
     align-items     : center;
