@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600');
+
 $gap: 10px;
 $navbar-app-height: 4vh;
 $navbar-board-height: 5vh;
@@ -6,7 +7,9 @@ $board-content-height: 91vh;
 
 $app-main-text-color: #333;
 $board-bg-color   : #0079bf;
+$column-bg-color    : #ebecf0;
 $common-element-bg: rgba(255, 255, 255, .24);
+$alert-danger: #ee5253;
 
 $column-border-radius: 6px;
 
