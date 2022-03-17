@@ -1,6 +1,7 @@
 @import '/src/setting';
 
 .board-content {
+  display: flex;
   height: $board-content-height;
   overflow-x  : auto;
   overflow-y: hidden;
@@ -24,4 +25,19 @@
     margin          : 5px 45px 5px 5px;
   }
 
+  .add-new-column {
+    width: 250px;
+    height: 32px;
+    line-height: 32px;
+    padding: 4px 0 4px 15px;
+    margin-left: $gap;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    background-color: hsla(0, 0%, 100%, .24);
+    border-radius: $column-border-radius;
+    &:hover {
+      background-color: hsla(0, 0%, 100%, .34);
+    }
+  }
 }
