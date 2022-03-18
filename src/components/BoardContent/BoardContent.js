@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { isEmpty } from 'lodash';
 import './BoardContent.scss';
 import Column from 'components/Column/Column';
@@ -13,10 +13,14 @@ function BoardContent() {
     const [board, setBoard] = useState({});
     const [columns, setColumns] = useState([]);
     const [openNewColumnForm, setOpenNewColumnForm] = useState(false);
-    const newColumnInputRef = useRef(null);
-    const [newColumnTitle, setNewColumnTitle] = useState('')
+    const toggleOpenNewColumnForm = () => {
+        setOpenNewColumnForm(!openNewColumnForm);
+    }
 
-    const newColumnTitleChange = useCallback((e) => setNewColumnTitle(e.target.value), [] )
+    const newColumnInputRef = useRef(null);
+
+    const [newColumnTitle, setNewColumnTitle] = useState('')
+    const newColumnTitleChange = (e) => setNewColumnTitle(e.target.value)
 
     useEffect(() => {
         const boardFromDB = initialData.boards.find(board => board.id === 'board-1')
@@ -28,7 +32,7 @@ function BoardContent() {
     }, []);
 
     useEffect(() => {
-        if(newColumnInputRef && newColumnInputRef.current) {
+        if (newColumnInputRef && newColumnInputRef.current) {
             newColumnInputRef.current.focus();
             newColumnInputRef.current.select();
         }
@@ -61,19 +65,15 @@ function BoardContent() {
         }
     }
 
-    const toggleOpenNewColumnForm = () => {
-        setOpenNewColumnForm(!openNewColumnForm);
-    }
-
     const addNewColumn = () => {
-        if(!newColumnTitle) {
+        if (!newColumnTitle) {
             newColumnInputRef.current.focus();
             return;
         }
 
         const newColumnToAdd = {
             id: Math.random().toString(36).substr(2, 5),
-            boardId: board.id, 
+            boardId: board.id,
             title: newColumnTitle.trim(),
             cardOrder: [],
             cards: []
@@ -93,14 +93,14 @@ function BoardContent() {
     }
 
     const onUpdateColumn = (newColumnToUpdate) => {
-        const columnIdToUpdate  = newColumnToUpdate.id;
+        const columnIdToUpdate = newColumnToUpdate.id;
         let newColumns = [...columns];
-        const columnIndexToUpdate  = newColumns.findIndex(i => i.id === columnIdToUpdate);
+        const columnIndexToUpdate = newColumns.findIndex(i => i.id === columnIdToUpdate);
 
-        if(newColumnToUpdate._destroy) {
+        if (newColumnToUpdate._destroy) {
             //remove column
             newColumns.splice(columnIndexToUpdate, 1);
-        }else {
+        } else {
             //update column
             newColumns.splice(columnIndexToUpdate, 1, newColumnToUpdate);
         }
@@ -111,6 +111,7 @@ function BoardContent() {
         setColumns(newColumns);
         setBoard(newBoard);
     }
+
 
     return (
         <div className="board-content">
@@ -127,7 +128,11 @@ function BoardContent() {
             >
                 {columns.map((column, index) => (
                     <Draggable key={index}>
-                        <Column column={column} onCardDrop={onCardDrop} onUpdateColumn={onUpdateColumn} />
+                        <Column
+                            column={column}
+                            onCardDrop={onCardDrop}
+                            onUpdateColumn={onUpdateColumn}
+                        />
                     </Draggable>
                 ))}
             </Container>
@@ -153,7 +158,7 @@ function BoardContent() {
                                 onKeyDown={event => (event.key === 'Enter') && addNewColumn()}
                             />
                             <Button variant="success" size="sm" onClick={addNewColumn}>Add column</Button>
-                            <span className="cancel-new-column" onClick={toggleOpenNewColumnForm}>
+                            <span className="cancel-icon" onClick={toggleOpenNewColumnForm}>
                                 <i className="fa fa-trash icon" />
                             </span>
                         </Col>
